@@ -1,0 +1,28 @@
+class Main {
+    function void main() { 
+        var Game game;
+        var int ch;
+
+        while(true){
+            do Screen.drawRectangle(0,0,511,255); //Set a black screen
+            let ch = Keyboard.keyPressed();
+            if (ch = 32){ 
+                do Screen.clearScreen();
+                //Let continue to the game after releasing 'space' button
+                while (ch = 32){
+                    let ch = Keyboard.keyPressed();
+                }
+
+                let game = Game.new();
+                do game.play();
+                do Sys.wait(500);
+                do Screen.setColor(true);
+            }
+
+            if (ch = 140){
+                return;
+            }
+        }
+        return;
+    }
+}

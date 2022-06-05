@@ -1,0 +1,65 @@
+class Game {
+    field Ship ship;
+    constructor Game new(){
+        do Screen.drawRectangle(0,0,511,255);
+        //Create objects
+        let ship = Ship.new();
+
+        //Setup objects in screen
+        do ship.draw();
+        do Sys.wait(1000);
+        return this;
+    }
+
+    //Handle input to interact with the game
+    method void play(){ 
+        var boolean gameActive, msg;
+        var int ch, debounceTime, time;
+
+        let gameActive = true;
+        let msg = true;
+        let debounceTime = 200;
+        do ship.draw();
+        while(gameActive){ 
+            let time = time + 1;
+            if (time = debounceTime){
+                let ch = Keyboard.keyPressed();
+                if (ch = 130){
+                    do ship.moveLeft();
+                }
+                if (ch = 132){
+                    do ship.moveRight();
+                }
+                let time = 0;
+            }
+            if (ch = 140){
+                do Screen.clearScreen();
+                let msg = false;
+                let gameActive = false;
+            }
+            if (ch = 131){
+                let gameActive = false;
+            }        
+        }
+        do gameOver(msg);
+        return;
+    }
+
+    //Ends the game by deallocating its reference in memory
+    method void gameOver(boolean msg){
+        var int ch;
+        if (msg){
+            do Output.moveCursor(11, 28);
+            do Output.printString("Game over");
+            while (msg){
+                let ch = Keyboard.keyPressed();
+                if (ch = 140){
+                    let msg = false;
+                }
+            }
+        }        
+        do ship.dispose();
+        do Memory.deAlloc(this);
+        return;
+    }    
+}

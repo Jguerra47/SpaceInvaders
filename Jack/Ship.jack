@@ -1,0 +1,44 @@
+class Ship {
+    field int x, y;    
+    constructor Ship new(){
+        let x = 250;
+        let y = 230;
+        return this;
+    }
+
+    method void draw(){
+        do Sprites.drawShip(x,y,false);
+        return;
+    }
+
+    //Move to left avoiding to cross the border of the screen
+    method void moveLeft(){
+        if (x-2 > 1){
+            do Sprites.drawShip(x,y,true);
+            let x = x-2;
+            do Sprites.drawShip(x,y,false);
+        }
+        return;
+    }
+
+    //Move to right avoiding to cross the border of the screen
+    method void moveRight(){
+        if (x+2 < 500){
+            do Sprites.drawShip(x,y,true);
+            let x = x+2;
+            do Sprites.drawShip(x,y,false);
+        }
+        return;
+    }
+
+    //Getter for x param
+    method int getX(){
+        return x;
+    }
+
+    //Delete the object 'ship' from memory
+    method void dispose() {
+        do Memory.deAlloc(this);
+        return;
+    }
+}
