@@ -1,0 +1,25 @@
+class Sprites {
+    function void drawShip(int x, int y, boolean color){
+        do Screen.setColor(color);
+        do Screen.drawRectangle(x+5,y+1,x+5,y+3);
+        do Screen.drawRectangle(x+4,y+3,x+6,y+4);
+        do Screen.drawRectangle(x+1,y+4,x+9,y+5);
+        do Screen.drawRectangle(x,y+5,x+10,y+8);
+        return;
+    }
+
+    function void drawBullet(int x, int y, boolean color){
+        do Screen.setColor(color);
+        do Screen.drawRectangle(x,y,x+1,y+5);
+        return;
+    }
+
+    function void drawAlien(int x, int y, boolean color){
+        do Screen.setColor(color);
+        do Screen.drawRectangle(x+4,y+6,x+6,y+8);
+        do Screen.drawRectangle(x+2,y+4,x+8,y+5);
+        do Screen.drawRectangle(x+1,y+2,x+9,y+3);
+        do Screen.drawRectangle(x,y,x+10,y+1);
+        return;
+    }
+}
