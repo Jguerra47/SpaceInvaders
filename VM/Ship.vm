@@ -76,10 +76,37 @@ pop temp 0
 label IF_FALSE0
 push constant 0
 return
+function Ship.shoot 0
+push argument 0
+pop pointer 0
+push argument 1
+call Bullet.getStatus 1
+push constant 0
+eq
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push argument 1
+push this 0
+push constant 5
+add
+call Bullet.setX 2
+pop temp 0
+push argument 1
+call Bullet.setStatus 1
+pop temp 0
+label IF_FALSE0
+push constant 0
+return
 function Ship.getX 0
 push argument 0
 pop pointer 0
 push this 0
+return
+function Ship.getY 0
+push argument 0
+pop pointer 0
+push this 1
 return
 function Ship.dispose 0
 push argument 0

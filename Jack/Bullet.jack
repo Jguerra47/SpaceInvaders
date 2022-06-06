@@ -1,0 +1,59 @@
+class Bullet {
+    field int x,y;
+    field boolean active; //Instead of creating many instances for each bullet we can use the same bullet handling its status.
+    constructor Bullet new(int Ax,int Ay){
+        let x = Ax;
+        let y = Ay;
+        let active = false;
+        return this;
+    }
+
+    method void dispose() {
+        do Memory.deAlloc(this);
+        return;
+    }
+    
+    method void draw(){
+        do Sprites.drawBullet(x,y,false);
+        return;
+    }
+
+    method void update(){
+        do Sprites.drawBullet(x,y,true);
+        let y = y-2;
+        if (y > 2){
+            do Sprites.drawBullet(x,y,false);
+        }else{
+            do setStatus();
+        }
+        return;
+    }
+
+    method boolean getStatus(){
+        return active;
+    }
+
+    method void setStatus(){
+        let active = ~active;
+        return;
+    }
+
+    method void setX(int newX){
+        let x = newX;
+        return;
+    }
+
+    method int getX(){
+        return x;
+    }
+
+    method int getY(){
+        return y;
+    }
+
+    method void delete(){
+        do Sprites.drawBullet(x,y,true);
+        do setStatus();
+        return;
+    }
+}

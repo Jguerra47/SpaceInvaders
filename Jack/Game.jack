@@ -1,9 +1,13 @@
 class Game {
     field Ship ship;
+    field Bullet bullet;
+
+    //Game constructor
     constructor Game new(){
         do Screen.drawRectangle(0,0,511,255);
         //Create objects
         let ship = Ship.new();
+        let bullet = Bullet.new(ship.getX(), ship.getY()-5);
 
         //Setup objects in screen
         do ship.draw();
@@ -19,19 +23,34 @@ class Game {
         let gameActive = true;
         let msg = true;
         let debounceTime = 200;
+        //let bullet = ship.getBullet();
+
         do ship.draw();
         while(gameActive){ 
             let time = time + 1;
             if (time = debounceTime){
                 let ch = Keyboard.keyPressed();
-                if (ch = 130){
+                if (ch = 130){  //Left arrow
                     do ship.moveLeft();
                 }
-                if (ch = 132){
+                if (ch = 132){  //Right arrow
                     do ship.moveRight();
                 }
-                let time = 0;
+                if (ch = 32){   //Space
+                    if(bullet.getStatus() = false){
+                        do bullet.setX(ship.getX()+5); 
+                        do bullet.setStatus(); 
+                    }
+                }
+
+                if (bullet.getStatus() = true){
+                    do bullet.update();
+                }
+                let time = 0;                
             }
+            
+
+            //Delete test
             if (ch = 140){
                 do Screen.clearScreen();
                 let msg = false;

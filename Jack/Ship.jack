@@ -1,5 +1,6 @@
 class Ship {
-    field int x, y;    
+    field int x, y;  
+
     constructor Ship new(){
         let x = 250;
         let y = 230;
@@ -31,9 +32,21 @@ class Ship {
         return;
     }
 
+    //Update bullet x field according its status and ship x field
+    method void shoot(Bullet bullet){
+        if(bullet.getStatus() = false){
+            do bullet.setX(x+5); 
+            do bullet.setStatus(); 
+        }
+        return;
+    }
     //Getter for x param
     method int getX(){
         return x;
+    }
+
+    method int getY(){
+        return y;
     }
 
     //Delete the object 'ship' from memory
