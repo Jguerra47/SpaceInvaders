@@ -1,0 +1,60 @@
+class Alien{
+    field int x,y,direction;
+    field boolean status;
+    constructor Alien new(int Ax,int Ay){
+        let x = Ax;
+        let y = Ay;
+        let direction = 1;
+        let status = true;
+        return this;
+    }
+
+    method void dispose() {
+        do Memory.deAlloc(this);
+        return;
+    }
+
+    method void draw(){
+        do Sprites.drawAlien(x,y,false);
+        return;
+    }
+    method void kill(){
+        do Sprites.drawAlien(x,y,true);
+        let status = ~status;
+        return;
+    }
+    method void update(){
+        do Sprites.drawAlien(x,y,true);
+        if (direction = 1){
+            let x = x+10;
+            if (x > 500){
+                let direction = 2;
+                let y = y + 10;
+                let x = 500;
+            }
+        }
+        if (direction = 2){
+            let x = x-10;
+            if (x < 1){
+                let direction = 1;
+                let x = x+2;
+                let y = y + 10;
+                let x = 1;
+            }
+        }
+        do Sprites.drawAlien(x,y,false);
+        return;
+    }
+
+    method int getX(){
+        return x;
+    }
+
+    method int getY(){
+        return y;
+    }
+
+    method boolean getStatus(){
+        return status;
+    }
+}

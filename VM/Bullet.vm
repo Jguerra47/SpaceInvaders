@@ -57,6 +57,10 @@ label IF_FALSE0
 push pointer 0
 call Bullet.setStatus 1
 pop temp 0
+push pointer 0
+push constant 225
+call Bullet.setY 2
+pop temp 0
 label IF_END0
 push constant 0
 return
@@ -78,6 +82,13 @@ push argument 0
 pop pointer 0
 push argument 1
 pop this 0
+push constant 0
+return
+function Bullet.setY 0
+push argument 0
+pop pointer 0
+push argument 1
+pop this 1
 push constant 0
 return
 function Bullet.getX 0

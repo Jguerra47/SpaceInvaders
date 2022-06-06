@@ -1,16 +1,19 @@
 class Game {
     field Ship ship;
     field Bullet bullet;
+    field Alien alien;
 
     //Game constructor
     constructor Game new(){
         do Screen.drawRectangle(0,0,511,255);
         //Create objects
         let ship = Ship.new();
+        let alien = Alien.new(250, 80);
         let bullet = Bullet.new(ship.getX(), ship.getY()-5);
 
         //Setup objects in screen
         do ship.draw();
+        do alien.draw();
         do Sys.wait(1000);
         return this;
     }
@@ -23,7 +26,6 @@ class Game {
         let gameActive = true;
         let msg = true;
         let debounceTime = 200;
-        //let bullet = ship.getBullet();
 
         do ship.draw();
         while(gameActive){ 
@@ -49,7 +51,6 @@ class Game {
                 let time = 0;                
             }
             
-
             //Delete test
             if (ch = 140){
                 do Screen.clearScreen();

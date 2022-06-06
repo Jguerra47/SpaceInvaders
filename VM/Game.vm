@@ -1,5 +1,5 @@
 function Game.new 0
-push constant 2
+push constant 3
 call Memory.alloc 1
 pop pointer 0
 push constant 0
@@ -10,6 +10,10 @@ call Screen.drawRectangle 4
 pop temp 0
 call Ship.new 0
 pop this 0
+push constant 250
+push constant 80
+call Alien.new 2
+pop this 2
 push this 0
 call Ship.getX 1
 push this 0
@@ -20,6 +24,9 @@ call Bullet.new 2
 pop this 1
 push this 0
 call Ship.draw 1
+pop temp 0
+push this 2
+call Alien.draw 1
 pop temp 0
 push constant 1000
 call Sys.wait 1
