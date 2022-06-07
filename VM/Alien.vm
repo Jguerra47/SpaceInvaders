@@ -31,20 +31,6 @@ call Sprites.drawAlien 3
 pop temp 0
 push constant 0
 return
-function Alien.kill 0
-push argument 0
-pop pointer 0
-push this 0
-push this 1
-push constant 0
-not
-call Sprites.drawAlien 3
-pop temp 0
-push this 3
-not
-pop this 3
-push constant 0
-return
 function Alien.update 0
 push argument 0
 pop pointer 0
@@ -54,67 +40,71 @@ push constant 0
 not
 call Sprites.drawAlien 3
 pop temp 0
-push this 2
-push constant 1
-eq
+push this 0
+push constant 499
+gt
 if-goto IF_TRUE0
 goto IF_FALSE0
 label IF_TRUE0
-push this 0
-push constant 10
-add
-pop this 0
-push this 0
-push constant 500
-gt
-if-goto IF_TRUE1
-goto IF_FALSE1
-label IF_TRUE1
-push constant 2
+push constant 1
+neg
 pop this 2
 push this 1
 push constant 10
 add
 pop this 1
-push constant 500
-pop this 0
-label IF_FALSE1
-label IF_FALSE0
-push this 2
-push constant 2
-eq
-if-goto IF_TRUE2
-goto IF_FALSE2
-label IF_TRUE2
-push this 0
-push constant 10
-sub
-pop this 0
-push this 0
-push constant 1
-lt
-if-goto IF_TRUE3
-goto IF_FALSE3
-label IF_TRUE3
-push constant 1
-pop this 2
-push this 0
-push constant 2
-add
-pop this 0
-push this 1
-push constant 10
-add
-pop this 1
-push constant 1
-pop this 0
-label IF_FALSE3
-label IF_FALSE2
 push this 0
 push this 1
 push constant 0
 call Sprites.drawAlien 3
 pop temp 0
+push constant 0
+return
+label IF_FALSE0
+push this 0
+push constant 10
+lt
+if-goto IF_TRUE1
+goto IF_FALSE1
+label IF_TRUE1
+push constant 1
+pop this 2
+push this 1
+push constant 10
+add
+pop this 1
+push this 0
+push this 1
+push constant 0
+call Sprites.drawAlien 3
+pop temp 0
+push constant 0
+return
+label IF_FALSE1
+push this 2
+push constant 10
+call Math.multiply 2
+push this 0
+add
+pop this 0
+push this 0
+push this 1
+push constant 0
+call Sprites.drawAlien 3
+pop temp 0
+push constant 0
+return
+function Alien.kill 0
+push argument 0
+pop pointer 0
+push this 0
+push this 1
+push constant 0
+not
+call Sprites.drawAlien 3
+pop temp 0
+push constant 0
+pop this 3
 push constant 0
 return
 function Alien.getX 0

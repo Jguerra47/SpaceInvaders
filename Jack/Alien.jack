@@ -18,31 +18,32 @@ class Alien{
         do Sprites.drawAlien(x,y,false);
         return;
     }
-    method void kill(){
-        do Sprites.drawAlien(x,y,true);
-        let status = ~status;
-        return;
-    }
+
+    //Draw and modify position according its direction during this instance
     method void update(){
         do Sprites.drawAlien(x,y,true);
-        if (direction = 1){
-            let x = x+10;
-            if (x > 500){
-                let direction = 2;
-                let y = y + 10;
-                let x = 500;
-            }
+        
+        if (x > 499){
+            let direction = -1;  
+            let y = y + 10;
+            do Sprites.drawAlien(x,y,false);
+            return;
         }
-        if (direction = 2){
-            let x = x-10;
-            if (x < 1){
-                let direction = 1;
-                let x = x+2;
-                let y = y + 10;
-                let x = 1;
-            }
-        }
+        if (x < 10){
+            let direction = 1;
+            let y = y + 10;
+            do Sprites.drawAlien(x,y,false);
+            return;
+        }     
+        
+        let x = direction*10+x;
         do Sprites.drawAlien(x,y,false);
+        return;
+    }
+
+    method void kill(){
+        do Sprites.drawAlien(x,y,true);
+        let status = false;
         return;
     }
 

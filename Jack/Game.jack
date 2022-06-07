@@ -21,13 +21,13 @@ class Game {
     //Handle input to interact with the game
     method void play(){ 
         var boolean gameActive, msg;
-        var int ch, debounceTime, time;
+        var int ch, debounceTime, debounceAlienTime, time, alienTime;
 
         let gameActive = true;
         let msg = true;
         let debounceTime = 200;
+        let debounceAlienTime = 3000;
 
-        do ship.draw();
         while(gameActive){ 
             let time = time + 1;
             if (time = debounceTime){
@@ -44,11 +44,15 @@ class Game {
                         do bullet.setStatus(); 
                     }
                 }
-
                 if (bullet.getStatus() = true){
                     do bullet.update();
                 }
                 let time = 0;                
+            }
+            let alienTime = alienTime + 1;
+            if (alienTime = debounceAlienTime){
+                do alien.update();
+                let alienTime = 0;
             }
             
             //Delete test

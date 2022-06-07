@@ -33,7 +33,7 @@ call Sys.wait 1
 pop temp 0
 push pointer 0
 return
-function Game.play 5
+function Game.play 7
 push argument 0
 pop pointer 0
 push constant 0
@@ -44,18 +44,17 @@ not
 pop local 1
 push constant 200
 pop local 3
-push this 0
-call Ship.draw 1
-pop temp 0
+push constant 3000
+pop local 4
 label WHILE_EXP0
 push local 0
 not
 if-goto WHILE_END0
-push local 4
+push local 5
 push constant 1
 add
-pop local 4
-push local 4
+pop local 5
+push local 5
 push local 3
 eq
 if-goto IF_TRUE0
@@ -121,30 +120,46 @@ call Bullet.update 1
 pop temp 0
 label IF_FALSE5
 push constant 0
-pop local 4
+pop local 5
 label IF_FALSE0
-push local 2
-push constant 140
+push local 6
+push constant 1
+add
+pop local 6
+push local 6
+push local 4
 eq
 if-goto IF_TRUE6
 goto IF_FALSE6
 label IF_TRUE6
+push this 2
+call Alien.update 1
+pop temp 0
+push constant 0
+pop local 6
+label IF_FALSE6
+push local 2
+push constant 140
+eq
+if-goto IF_TRUE7
+goto IF_FALSE7
+label IF_TRUE7
 call Screen.clearScreen 0
 pop temp 0
 push constant 0
 pop local 1
 push constant 0
 pop local 0
-label IF_FALSE6
+label IF_FALSE7
 push local 2
 push constant 131
 eq
-if-goto IF_TRUE7
-goto IF_FALSE7
-label IF_TRUE7
+if-goto IF_TRUE8
+goto IF_FALSE8
+label IF_TRUE8
 push constant 0
 pop local 0
-label IF_FALSE7
+label IF_FALSE8
 goto WHILE_EXP0
 label WHILE_END0
 push pointer 0
