@@ -57,9 +57,10 @@ class Bullet {
         return y;
     }
 
-    method void delete(){
+    method void reset(){
         do Sprites.drawBullet(x,y,true);
         do setStatus();
+        do setY(225);
         return;
     }
 }

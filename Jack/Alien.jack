@@ -20,7 +20,7 @@ class Alien{
 
     //Draw and modify position according its direction during this instance
     method boolean checkMove(boolean directionsMatch){
-        if(directionsMatch){
+        if(directionsMatch & status){
             if (x > 499){
                 do Game.setDirection(-1);
                 return false; //Should go to update Y
@@ -34,16 +34,20 @@ class Alien{
     }
 
     method void updateX(){
-        do Sprites.drawAlien(x,y,true);
-        let x = Game.getDirection()*10+x;
-        do Sprites.drawAlien(x,y,false); //Re-draw side current position
+        if(status){
+            do Sprites.drawAlien(x,y,true);
+            let x = Game.getDirection()*10+x;
+            do Sprites.drawAlien(x,y,false); //Re-draw side current position
+        }        
         return;
     }
 
     method void updateY(){
-        do Sprites.drawAlien(x,y,true);
-        let y = y + 10;
-        do Sprites.drawAlien(x,y,false);
+        if(status){
+            do Sprites.drawAlien(x,y,true);
+            let y = y + 10;
+            do Sprites.drawAlien(x,y,false);
+        }       
         return;
     }
 

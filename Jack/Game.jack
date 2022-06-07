@@ -2,6 +2,7 @@ class Game {
     field Ship ship;
     field Bullet bullet;
     field Alien alien1, alien2, alien3, alien4, alien5, alien6;
+    field int numAliens;
     static int direction, directionAux;
 
     //Game constructor
@@ -9,10 +10,11 @@ class Game {
         do Screen.drawRectangle(0,0,511,255);
         //Create objects
         let ship = Ship.new();
-        let bullet = Bullet.new(ship.getX(), ship.getY()-5);
+        let bullet = Bullet.new(ship.getX(), ship.getY()-5); //One bullet to optimize performance
         let direction = 1;
         let directionAux = 1;
 
+        let numAliens = 6;
         let alien1 = Alien.new(230, 60);
         let alien2 = Alien.new(250, 60);
         let alien3 = Alien.new(270, 60);
@@ -35,14 +37,17 @@ class Game {
     //Handle input to interact with the game
     method void play(){ 
         var boolean gameActive, msg;
-        var int ch, debounceTime, debounceAlienTime, time, alienTime;
+        var int ch, debounceTime, debounceAlienTime, debounceBulletTime, time, alienTime, bulletTime;
 
         let gameActive = true;
         let msg = true;
         let debounceTime = 200;
         let debounceAlienTime = 3000;
+        let debounceBulletTime = 50;
 
         while(gameActive){ 
+
+            //1. Ship functions
             let time = time + 1;
             if (time = debounceTime){
                 let ch = Keyboard.keyPressed();
@@ -58,32 +63,60 @@ class Game {
                         do bullet.setStatus(); 
                     }
                 }
-                if (bullet.getStatus() = true){
-                    do bullet.update();
-                }
                 let time = 0;                
             }
+
+            //2. Collision detection
+            let bulletTime = bulletTime + 1;
+            if (bulletTime = debounceBulletTime){
+                if (bullet.getStatus() = true){
+                    do bullet.update();
+                    do checkCollisions();
+                }
+                let bulletTime = 0;
+            }
+
+            //3. Alien movement
             let alienTime = alienTime + 1;
             if (alienTime = debounceAlienTime){
                 do updateAliens();
                 let alienTime = 0;
+            }            
+            
+            //4. Exit game
+            if (ch = 131 | numAliens = 0){
+                let gameActive = false;
             }
             
-            //Delete test
+            //Delete test: Manual Game Over
             if (ch = 140){
                 do Screen.clearScreen();
                 let msg = false;
                 let gameActive = false;
             }
-            if (ch = 131){
-                let gameActive = false;
-            }        
         }
-        do gameOver(msg);
+
+        //Show proper message
+        if(numAliens = 0){
+            do winAlert(msg);
+        }else{
+            do gameOver(msg);
+        }        
+
+        //Dispose from memory
+        do ship.dispose();
+        do bullet.dispose();
+        do alien1.dispose();
+        do alien2.dispose();
+        do alien3.dispose();
+        do alien4.dispose();
+        do alien5.dispose();
+        do alien6.dispose();
+        do Memory.deAlloc(this);
         return;
     }
 
-    //Ends the game by deallocating its reference in memory
+    //Game over alert
     method void gameOver(boolean msg){
         var int ch;
         if (msg){
@@ -95,9 +128,20 @@ class Game {
                     let msg = false;
                 }
             }
-        }        
-        do ship.dispose();
-        do Memory.deAlloc(this);
+        }      
+        return;
+    }
+
+    method void winAlert(boolean msg){
+        var int ch;
+        do Output.moveCursor(11, 30);
+        do Output.printString("YOU WIN");
+        while (msg){
+            let ch = Keyboard.keyPressed();
+            if (ch = 140){
+                let msg = false;
+            }
+        }
         return;
     }
     
@@ -119,12 +163,47 @@ class Game {
             do alien6.updateX();
             let directionAux = direction;
         }else{
+            do alien4.updateY();
+            do alien5.updateY();
+            do alien6.updateY();
             do alien1.updateY();
             do alien2.updateY();
             do alien3.updateY();
-            do alien4.updateY();
-            do alien5.updateY();
-            do alien6.updateY();            
+                        
+        }
+        return;
+    }
+
+    method void checkCollisions(){
+        if ((alien1.getStatus() = true) & (bullet.getX() > (alien1.getX()-2)) & (bullet.getX() < (alien1.getX()+11)) & (bullet.getY() > alien1.getY()) & (bullet.getY() < (alien1.getY()+7))){
+            do alien1.kill();
+            do bullet.reset();
+            let numAliens = numAliens-1;
+        }
+        if ((alien2.getStatus() = true) & (bullet.getX() > (alien2.getX()-2)) & (bullet.getX() < (alien2.getX()+11)) & (bullet.getY() > alien2.getY()) & (bullet.getY() < (alien2.getY()+7))){
+            do alien2.kill();
+            do bullet.reset();
+            let numAliens = numAliens-1;
+        }
+        if ((alien3.getStatus() = true) & (bullet.getX() > (alien3.getX()-2)) & (bullet.getX() < (alien3.getX()+11)) & (bullet.getY() > alien3.getY()) & (bullet.getY() < (alien3.getY()+7))){
+            do alien3.kill();
+            do bullet.reset();
+            let numAliens = numAliens-1;
+        }
+        if ((alien4.getStatus() = true) & (bullet.getX() > (alien4.getX()-2)) & (bullet.getX() < (alien4.getX()+11)) & (bullet.getY() > alien4.getY()) & (bullet.getY() < (alien4.getY()+7))){
+            do alien4.kill();
+            do bullet.reset();
+            let numAliens = numAliens-1;
+        }
+        if ((alien5.getStatus() = true) & (bullet.getX() > (alien5.getX()-2)) & (bullet.getX() < (alien5.getX()+11)) & (bullet.getY() > alien5.getY()) & (bullet.getY() < (alien5.getY()+7))){
+            do alien5.kill();
+            do bullet.reset();
+            let numAliens = numAliens-1;
+        }
+        if ((alien6.getStatus() = true) & (bullet.getX() > (alien6.getX()-2)) & (bullet.getX() < (alien6.getX()+11)) & (bullet.getY() > alien6.getY()) & (bullet.getY() < (alien6.getY()+7))){
+            do alien6.kill();
+            do bullet.reset();
+            let numAliens = numAliens-1;
         }
         return;
     }
@@ -133,17 +212,8 @@ class Game {
         return direction;
     }
 
-    function int getDirectionAux(){
-        return directionAux;
-    }
-
     function void setDirection(int newDirection){
         let direction = newDirection;
-        return;
-    }
-
-    function void setDirectionAux(int newDirection){
-        let directionAux = newDirection;
         return;
     }
 }
