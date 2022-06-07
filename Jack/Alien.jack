@@ -1,10 +1,10 @@
 class Alien{
-    field int x,y,direction;
+    field int x,y;
     field boolean status;
+
     constructor Alien new(int Ax,int Ay){
         let x = Ax;
         let y = Ay;
-        let direction = 1;
         let status = true;
         return this;
     }
@@ -13,30 +13,36 @@ class Alien{
         do Memory.deAlloc(this);
         return;
     }
-
     method void draw(){
         do Sprites.drawAlien(x,y,false);
         return;
     }
 
     //Draw and modify position according its direction during this instance
-    method void update(){
+    method boolean checkMove(boolean directionsMatch){
+        if(directionsMatch){
+            if (x > 499){
+                do Game.setDirection(-1);
+                return false; //Should go to update Y
+            }
+            if (x < 10){
+                do Game.setDirection(1);
+                return false; //Should go to update Y
+            }
+        }        
+        return true;
+    }
+
+    method void updateX(){
         do Sprites.drawAlien(x,y,true);
-        
-        if (x > 499){
-            let direction = -1;  
-            let y = y + 10;
-            do Sprites.drawAlien(x,y,false);
-            return;
-        }
-        if (x < 10){
-            let direction = 1;
-            let y = y + 10;
-            do Sprites.drawAlien(x,y,false);
-            return;
-        }     
-        
-        let x = direction*10+x;
+        let x = Game.getDirection()*10+x;
+        do Sprites.drawAlien(x,y,false); //Re-draw side current position
+        return;
+    }
+
+    method void updateY(){
+        do Sprites.drawAlien(x,y,true);
+        let y = y + 10;
         do Sprites.drawAlien(x,y,false);
         return;
     }

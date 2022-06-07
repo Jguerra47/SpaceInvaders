@@ -1,5 +1,5 @@
 function Game.new 0
-push constant 3
+push constant 8
 call Memory.alloc 1
 pop pointer 0
 push constant 0
@@ -10,10 +10,6 @@ call Screen.drawRectangle 4
 pop temp 0
 call Ship.new 0
 pop this 0
-push constant 250
-push constant 80
-call Alien.new 2
-pop this 2
 push this 0
 call Ship.getX 1
 push this 0
@@ -22,10 +18,53 @@ push constant 5
 sub
 call Bullet.new 2
 pop this 1
+push constant 1
+pop static 0
+push constant 1
+pop static 1
+push constant 230
+push constant 60
+call Alien.new 2
+pop this 2
+push constant 250
+push constant 60
+call Alien.new 2
+pop this 3
+push constant 270
+push constant 60
+call Alien.new 2
+pop this 4
+push constant 230
+push constant 70
+call Alien.new 2
+pop this 5
+push constant 250
+push constant 70
+call Alien.new 2
+pop this 6
+push constant 270
+push constant 70
+call Alien.new 2
+pop this 7
 push this 0
 call Ship.draw 1
 pop temp 0
 push this 2
+call Alien.draw 1
+pop temp 0
+push this 3
+call Alien.draw 1
+pop temp 0
+push this 4
+call Alien.draw 1
+pop temp 0
+push this 5
+call Alien.draw 1
+pop temp 0
+push this 6
+call Alien.draw 1
+pop temp 0
+push this 7
 call Alien.draw 1
 pop temp 0
 push constant 1000
@@ -132,8 +171,8 @@ eq
 if-goto IF_TRUE6
 goto IF_FALSE6
 label IF_TRUE6
-push this 2
-call Alien.update 1
+push pointer 0
+call Game.updateAliens 1
 pop temp 0
 push constant 0
 pop local 6
@@ -225,5 +264,112 @@ pop temp 0
 push pointer 0
 call Memory.deAlloc 1
 pop temp 0
+push constant 0
+return
+function Game.updateAliens 2
+push argument 0
+pop pointer 0
+push static 0
+push static 1
+eq
+pop local 1
+push constant 0
+not
+push this 2
+push local 1
+call Alien.checkMove 2
+and
+pop local 0
+push local 0
+push this 3
+push local 1
+call Alien.checkMove 2
+and
+pop local 0
+push local 0
+push this 4
+push local 1
+call Alien.checkMove 2
+and
+pop local 0
+push local 0
+push this 5
+push local 1
+call Alien.checkMove 2
+and
+pop local 0
+push local 0
+push this 6
+push local 1
+call Alien.checkMove 2
+and
+pop local 0
+push local 0
+push this 7
+push local 1
+call Alien.checkMove 2
+and
+pop local 0
+push local 0
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push this 2
+call Alien.updateX 1
+pop temp 0
+push this 3
+call Alien.updateX 1
+pop temp 0
+push this 4
+call Alien.updateX 1
+pop temp 0
+push this 5
+call Alien.updateX 1
+pop temp 0
+push this 6
+call Alien.updateX 1
+pop temp 0
+push this 7
+call Alien.updateX 1
+pop temp 0
+push static 0
+pop static 1
+goto IF_END0
+label IF_FALSE0
+push this 2
+call Alien.updateY 1
+pop temp 0
+push this 3
+call Alien.updateY 1
+pop temp 0
+push this 4
+call Alien.updateY 1
+pop temp 0
+push this 5
+call Alien.updateY 1
+pop temp 0
+push this 6
+call Alien.updateY 1
+pop temp 0
+push this 7
+call Alien.updateY 1
+pop temp 0
+label IF_END0
+push constant 0
+return
+function Game.getDirection 0
+push static 0
+return
+function Game.getDirectionAux 0
+push static 1
+return
+function Game.setDirection 0
+push argument 0
+pop static 0
+push constant 0
+return
+function Game.setDirectionAux 0
+push argument 0
+pop static 1
 push constant 0
 return
