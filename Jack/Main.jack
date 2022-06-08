@@ -3,23 +3,34 @@ class Main {
     function void main() { 
         var Game game;
         var int ch;
+        var boolean debounce;
 
-        while(true){
-            do Screen.drawRectangle(0,0,511,255); //Set a black screen
+        while(true){ 
+            //Render title
+            if (~debounce){
+                do Screen.drawRectangle(0,0,511,255); //Set a black screen        
+                do TitleView.setView(190, 50);
+                let debounce = true;
+            }           
             let ch = Keyboard.keyPressed();
+
+            //Access game
             if (ch = 32){ 
                 do Screen.clearScreen();
                 //Let continue to the game after releasing 'space' button
                 while (ch = 32){
                     let ch = Keyboard.keyPressed();
                 }
-
+                
+                do Screen.setColor(true);
                 let game = Game.new();
                 do game.play();
+                let debounce = false;
                 do Sys.wait(500);
                 do Screen.setColor(true);
             }
 
+            //Exit
             if (ch = 140){
                 return;
             }

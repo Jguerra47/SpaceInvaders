@@ -39,7 +39,7 @@ if-goto IF_TRUE0
 goto IF_FALSE0
 label IF_TRUE0
 push this 0
-push constant 499
+push constant 339
 gt
 if-goto IF_TRUE1
 goto IF_FALSE1
@@ -52,7 +52,7 @@ push constant 0
 return
 label IF_FALSE1
 push this 0
-push constant 10
+push constant 170
 lt
 if-goto IF_TRUE2
 goto IF_FALSE2

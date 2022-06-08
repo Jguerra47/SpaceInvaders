@@ -21,11 +21,11 @@ class Alien{
     //Draw and modify position according its direction during this instance
     method boolean checkMove(boolean directionsMatch){
         if(directionsMatch & status){
-            if (x > 499){
+            if (x > 339){
                 do Game.setDirection(-1);
                 return false; //Should go to update Y
             }
-            if (x < 10){
+            if (x < 170){
                 do Game.setDirection(1);
                 return false; //Should go to update Y
             }

@@ -14,7 +14,7 @@ class Ship {
 
     //Move to left avoiding to cross the border of the screen
     method void moveLeft(){
-        if (x-2 > 1){
+        if (x-2 > 160){
             do Sprites.drawShip(x,y,true);
             let x = x-2;
             do Sprites.drawShip(x,y,false);
@@ -24,7 +24,7 @@ class Ship {
 
     //Move to right avoiding to cross the border of the screen
     method void moveRight(){
-        if (x+2 < 500){
+        if (x+2 < 340){
             do Sprites.drawShip(x,y,true);
             let x = x+2;
             do Sprites.drawShip(x,y,false);

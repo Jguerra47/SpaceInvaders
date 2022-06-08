@@ -8,6 +8,11 @@ class Game {
     //Game constructor
     constructor Game new(){
         do Screen.drawRectangle(0,0,511,255);
+        do Screen.setColor(false);
+        do Screen.drawLine(155,0,155,255);
+        do Screen.drawLine(355,0,355,255);
+        do Screen.setColor(true);
+        
         //Create objects
         let ship = Ship.new();
         let bullet = Bullet.new(ship.getX(), ship.getY()-5); //One bullet to optimize performance
@@ -46,7 +51,6 @@ class Game {
         let debounceBulletTime = 50;
 
         while(gameActive){ 
-
             //1. Ship functions
             let time = time + 1;
             if (time = debounceTime){
@@ -76,19 +80,18 @@ class Game {
                 let bulletTime = 0;
             }
 
-            //3. Alien movement
+            //3. Alien functions
             let alienTime = alienTime + 1;
             if (alienTime = debounceAlienTime){
                 do updateAliens();
+
                 let alienTime = 0;
             }            
             
             //4. Exit game
-            if (ch = 131 | numAliens = 0){
+            if (numAliens = 0){
                 let gameActive = false;
             }
-            
-            //Delete test: Manual Game Over
             if (ch = 140){
                 do Screen.clearScreen();
                 let msg = false;
