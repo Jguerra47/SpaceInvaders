@@ -9,8 +9,9 @@ class Main {
             //Render title
             if (~debounce){
                 do Screen.drawRectangle(0,0,511,255); //Set a black screen        
-                do TitleView.setView(190, 50);
+                do TitleView.setView(185, 50);
                 let debounce = true;
+                do Sys.wait(300);
             }           
             let ch = Keyboard.keyPressed();
 

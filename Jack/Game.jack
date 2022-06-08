@@ -12,7 +12,7 @@ class Game {
         do Screen.drawLine(155,0,155,255);
         do Screen.drawLine(355,0,355,255);
         do Screen.setColor(true);
-        
+
         //Create objects
         let ship = Ship.new();
         let bullet = Bullet.new(ship.getX(), ship.getY()-5); //One bullet to optimize performance
@@ -24,7 +24,7 @@ class Game {
         let alien2 = Alien.new(250, 60);
         let alien3 = Alien.new(270, 60);
         let alien4 = Alien.new(230, 70);
-        let alien5 = Alien.new(250, 70);
+        let alien5 = Alien.new(250, 150);
         let alien6 = Alien.new(270, 70);
 
         //Setup objects in screen
@@ -84,7 +84,9 @@ class Game {
             let alienTime = alienTime + 1;
             if (alienTime = debounceAlienTime){
                 do updateAliens();
-
+                if(aliensReachBottom()){
+                    let gameActive = false;
+                }
                 let alienTime = 0;
             }            
             
@@ -125,10 +127,15 @@ class Game {
         if (msg){
             do Output.moveCursor(11, 28);
             do Output.printString("Game over");
+            
+            do Sys.wait(500);
             while (msg){
                 let ch = Keyboard.keyPressed();
-                if (ch = 140){
+                if (ch = 140 | ch = 32){
                     let msg = false;
+                    while(~(ch = 0)){  
+                        let ch = Keyboard.keyPressed();             
+                    }
                 }
             }
         }      
@@ -137,11 +144,12 @@ class Game {
 
     method void winAlert(boolean msg){
         var int ch;
-        do Output.moveCursor(11, 30);
+        do Output.moveCursor(11, 29);
         do Output.printString("YOU WIN");
-        while (msg){
+        do Sys.wait(500);
+        while (msg){      
             let ch = Keyboard.keyPressed();
-            if (ch = 140){
+            if (ch = 140 | ch = 32){
                 let msg = false;
             }
         }
@@ -175,6 +183,40 @@ class Game {
                         
         }
         return;
+    }
+
+    method boolean aliensReachBottom(){
+        if (alien1.getStatus()){
+            if (alien1.getY() > 200){
+                return true;
+            }
+        }
+        if (alien2.getStatus()){
+            if (alien2.getY() > 200){
+                return true;
+            }
+        }
+        if (alien3.getStatus()){
+            if (alien3.getY() > 200){
+                return true;
+            }
+        }
+        if (alien4.getStatus()){
+            if (alien4.getY() > 200){
+                return true;
+            }
+        }
+        if (alien5.getStatus()){
+            if (alien5.getY() > 200){
+                return true;
+            }
+        }
+        if (alien6.getStatus()){
+            if (alien6.getY() > 200){
+                return true;
+            }
+        }
+        return false;
     }
 
     method void checkCollisions(){

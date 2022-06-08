@@ -15,13 +15,16 @@ push constant 511
 push constant 255
 call Screen.drawRectangle 4
 pop temp 0
-push constant 190
+push constant 185
 push constant 50
 call TitleView.setView 2
 pop temp 0
 push constant 0
 not
 pop local 2
+push constant 300
+call Sys.wait 1
+pop temp 0
 label IF_FALSE0
 call Keyboard.keyPressed 0
 pop local 1
